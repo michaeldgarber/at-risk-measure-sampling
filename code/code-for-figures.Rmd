@@ -33,7 +33,7 @@ fig1_df = 1:20 %>%
   arrange(desc(N)) %>% 
   mutate(
     L_cum_right = cumsum(L),
-    BD=L*N,
+    PD=L*N,
     L_cum_left =L_cum_right-L,
     L_cum_mid = L_cum_left+((L_cum_right-L_cum_left)/2), #because I want to plot at midpoint
   
@@ -45,10 +45,11 @@ fig1_df = 1:20 %>%
             #more likely to be sampled if longer segment (higher L)
             shape2= mean(L)+ mean(N) + 5*(L*100)
             ),
-    N_f = N*f,
-    BD_f = N_f*L,
-    N_f_not = N-N_f,
-    BD_f_not = BD - BD_f,
+    n = N*f, #sampled N is lowercase n, per manuscript notation
+    PD_f = n*L, #segment-level person-distance
+    N_f_not = N-n, #number not sampled
+    PD_f_not = PD - PD_f,
+    #Set exposure to follow a binomial distribution (p=.4)
     e = rbinom(n=n(), size=1, prob=.4),
     e_char = case_when(
       e==1 ~ "E=1",
@@ -59,8 +60,8 @@ fig1_df = 1:20 %>%
 
 # Create a long-form dataset. (Could do this with pivot-longer but not yet intuitive to me)
 fig1_df_long_s1 = fig1_df %>% 
-  dplyr::select(id, L, N, L_cum_mid, N_f, BD_f, e_char, e) %>% 
-  rename(n_long = N_f, BD_long = BD_f) %>% 
+  dplyr::select(id, L, N, L_cum_mid, n, PD_f, e_char, e) %>% 
+  rename(n_long = n, PD_long = PD_f) %>% 
   arrange(L) %>% 
   mutate(sampled=1) %>% 
   group_by(e) %>% 
@@ -71,8 +72,8 @@ fig1_df_long_s1 = fig1_df %>%
   )
 
 fig1_df_long_s0 = fig1_df %>% 
-  dplyr::select(id, L, N, L_cum_mid, N_f_not, BD_f_not, e_char, e) %>% 
-  rename(n_long = N_f_not, BD_long = BD_f_not) %>% 
+  dplyr::select(id, L, N, L_cum_mid, N_f_not, PD_f_not, e_char, e) %>% 
+  rename(n_long = N_f_not, PD_long = PD_f_not) %>% 
   arrange(L) %>% 
   mutate(sampled=0) %>% 
   group_by(e) %>% 
