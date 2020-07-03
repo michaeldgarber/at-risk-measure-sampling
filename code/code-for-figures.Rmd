@@ -18,32 +18,35 @@ library(truncnorm)
 ```
 
 
-### Simulate data for the figure
+### Simulate data for the figures
 
 ```{r generate data, eval=TRUE, echo=TRUE}
 fig1_df = 1:20 %>% 
   as_tibble() %>% 
   rename(id=value) %>%
   mutate(
-    l=rtruncnorm(a=3,
+    L=rtruncnorm(a=3,
                  mean=20, sd=20, n=n()),
-    N=rtruncnorm(a=5, mean=20 + -0.1*l, sd=20, n=n())) %>% 
+    #induce a slight negative association between segment length (L) and
+    #the number of times the segment was traveled upon (N)
+    N=rtruncnorm(a=5, mean=20 + -0.1*L, sd=20, n=n())) %>% 
   arrange(desc(N)) %>% 
   mutate(
-    l_cum_right = cumsum(l),
-    BD=l*N,
-    l_cum_left =l_cum_right-l,
-    l_cum_mid = l_cum_left+((l_cum_right-l_cum_left)/2), #because I want to plot at midpoint
-
+    L_cum_right = cumsum(L),
+    BD=L*N,
+    L_cum_left =L_cum_right-L,
+    L_cum_mid = L_cum_left+((L_cum_right-L_cum_left)/2), #because I want to plot at midpoint
+  
+    #define the sampling fraction (f) with a beta distribution because it's a proportion
     f=rbeta(n=n(),
-            #more likely to be sampled if higher traffic segment and longer segment
-            shape1= 15*(mean(l)+ mean(N))+100*N , 
+            #more likely to be sampled if higher traffic segment (higher N)
+            shape1= 15*(mean(L)+ mean(N))+100*N , 
             
-            #this makes the average probability 1/4, scaled to N
-            shape2= mean(l)+ mean(N) + 5*(l*100)
+            #more likely to be sampled if longer segment (higher L)
+            shape2= mean(L)+ mean(N) + 5*(L*100)
             ),
     N_f = N*f,
-    BD_f = N_f*l,
+    BD_f = N_f*L,
     N_f_not = N-N_f,
     BD_f_not = BD - BD_f,
     e = rbinom(n=n(), size=1, prob=.4),
@@ -54,29 +57,29 @@ fig1_df = 1:20 %>%
   )
 
 
-# create a long-form dataset. (Could do this with pivot-longer but not yet intuitive to me)
+# Create a long-form dataset. (Could do this with pivot-longer but not yet intuitive to me)
 fig1_df_long_s1 = fig1_df %>% 
-  dplyr::select(id, l, N, l_cum_mid, N_f, BD_f, e_char, e) %>% 
+  dplyr::select(id, L, N, L_cum_mid, N_f, BD_f, e_char, e) %>% 
   rename(n_long = N_f, BD_long = BD_f) %>% 
-  arrange(l) %>% 
+  arrange(L) %>% 
   mutate(sampled=1) %>% 
   group_by(e) %>% 
   mutate(
-    l_cum_right_alt = cumsum(l), #alt
-    l_cum_left_alt =l_cum_right_alt-l,
-    l_cum_mid_alt = l_cum_left_alt+((l_cum_right_alt-l_cum_left_alt)/2)
+    L_cum_right_alt = cumsum(L), #alt
+    L_cum_left_alt =L_cum_right_alt-L,
+    L_cum_mid_alt = L_cum_left_alt+((L_cum_right_alt-L_cum_left_alt)/2)
   )
 
 fig1_df_long_s0 = fig1_df %>% 
-  dplyr::select(id, l, N, l_cum_mid, N_f_not, BD_f_not, e_char, e) %>% 
+  dplyr::select(id, L, N, L_cum_mid, N_f_not, BD_f_not, e_char, e) %>% 
   rename(n_long = N_f_not, BD_long = BD_f_not) %>% 
-  arrange(l) %>% 
+  arrange(L) %>% 
   mutate(sampled=0) %>% 
   group_by(e) %>% 
   mutate(
-    l_cum_right_alt = cumsum(l), #alt
-    l_cum_left_alt =l_cum_right_alt-l,
-    l_cum_mid_alt = l_cum_left_alt+((l_cum_right_alt-l_cum_left_alt)/2)
+    L_cum_right_alt = cumsum(L), #alt
+    L_cum_left_alt =L_cum_right_alt-L,
+    L_cum_mid_alt = L_cum_left_alt+((L_cum_right_alt-L_cum_left_alt)/2)
   )
 
 
@@ -89,7 +92,7 @@ fig1_df_long = fig1_df_long_s1 %>%
 
 ```{r figure1, eval=TRUE, echo=TRUE}
 fig1_df_long %>% 
-  ggplot(aes(x=l_cum_mid, y=n_long, width=l, fill =as.character(sampled))) + #set coordinate to the cumulative midpoint
+  ggplot(aes(x=L_cum_mid, y=n_long, width=L, fill =as.character(sampled))) + #set coordinate to the cumulative midpoint
   geom_bar(
     stat="identity", 
     position = "stack",
