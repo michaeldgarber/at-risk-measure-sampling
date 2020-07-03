@@ -15,7 +15,7 @@
     
 
 #
-
+library(truncnorm)
 #------1. A simple example with no correlation of segments within groups to illustrate the concept------####
 #The condition (Equation 3) is satisfied.
 n_segments_df1 = 100000

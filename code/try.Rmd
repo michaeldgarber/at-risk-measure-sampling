@@ -5,9 +5,14 @@ date: "7/2/2020"
 output: rmarkdown::github_document
 ---
 
+library(truncnorm)
+This code produces Figures 1 and 2 in the manuscript.
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+Load the necessary libraries.
+```{r load packages, eval=TRUE, echo=TRUE, message=FALSE, error=FALSE, warning=FALSE}
+
+library(tidyverse) #See http://r4ds.had.co.nz/ for background.
+library(ggdag) #For drawing a DAG
 ```
 
 ## R Markdown

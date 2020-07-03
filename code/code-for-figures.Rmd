@@ -1,0 +1,18 @@
+---
+title: "Code for Figures"
+author: "Michael Garber"
+date: "7/2/2020"
+output:
+  html_document:
+    df_print: paged
+---
+
+library(truncnorm)
+This code produces Figures 1 and 2 in the manuscript.
+
+Load the necessary libraries.
+```{r load packages, eval=TRUE, echo=TRUE, message=FALSE, error=FALSE, warning=FALSE}
+
+library(tidyverse) 
+library(truncnorm)
+```
