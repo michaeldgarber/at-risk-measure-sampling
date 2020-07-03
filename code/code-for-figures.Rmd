@@ -5,8 +5,7 @@ date: "7/2/2020"
 output:
   html_document:
     df_print: paged
-    keep_md: true
-    preserve_yaml: false #this should get rid of the YAML
+    keep_md: true #This creates a md file which can then be displayed on github. See https://happygitwithr.com/rmd-test-drive.html
 ---
 
 This code produces Figures 1 and 2 in the manuscript.
