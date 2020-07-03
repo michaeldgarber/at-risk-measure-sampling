@@ -87,7 +87,7 @@ fig1_df_long = fig1_df_long_s1 %>%
 
 ### Figure 1: person-distance sampling at the segment level
 
-```{r figurecode, eval=TRUE, echo=TRUE}
+```{r figure1, eval=TRUE, echo=TRUE}
 fig1_df_long %>% 
   ggplot(aes(x=l_cum_mid, y=n_long, width=l, fill =as.character(sampled))) + #set coordinate to the cumulative midpoint
   geom_bar(
@@ -122,7 +122,7 @@ fig1_df_long %>%
 
 ### Figure 2: person-event sampling at the intersection level
 
-```{r figure 2, eval=TRUE, echo=TRUE}
+```{r figure2, eval=TRUE, echo=TRUE}
 fig1_df_long %>% 
   group_by(sampled) %>%  
   arrange(desc(N)) %>% 
@@ -157,4 +157,5 @@ fig1_df_long %>%
   theme( strip.background =element_rect(fill="white"))+
   theme(  strip.text =element_text(colour =   "black"))
 ```
+
 

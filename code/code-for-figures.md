@@ -121,7 +121,7 @@ fig1_df_long %>%
   theme(  strip.text =element_text(colour =   "black"))
 ```
 
-![](code-for-figures_files/figure-html/figurecode-1.png)<!-- -->
+![](code-for-figures_files/figure-html/figure1-1.png)<!-- -->
 
 ### Figure 2: person-event sampling at the intersection level
 
@@ -162,5 +162,6 @@ fig1_df_long %>%
   theme(  strip.text =element_text(colour =   "black"))
 ```
 
-![](code-for-figures_files/figure-html/figure 2-1.png)<!-- -->
+![](code-for-figures_files/figure-html/figure2-1.png)<!-- -->
+
 
