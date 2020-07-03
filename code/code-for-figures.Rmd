@@ -50,21 +50,21 @@ fig1_df = 1:20 %>%
     N_f_not = N-n, #number not sampled
     PD_f_not = PD - PD_f,
     #Set exposure to follow a binomial distribution (p=.4)
-    e = rbinom(n=n(), size=1, prob=.4),
-    e_char = case_when(
-      e==1 ~ "E=1",
-      e==0 ~ "E=0"
+    E = rbinom(n=n(), size=1, prob=.4),
+    E_char = case_when(
+      E==1 ~ "E=1",
+      E==0 ~ "E=0"
     )
   )
 
 
 # Create a long-form dataset. (Could do this with pivot-longer but not yet intuitive to me)
 fig1_df_long_s1 = fig1_df %>% 
-  dplyr::select(id, L, N, L_cum_mid, n, PD_f, e_char, e) %>% 
+  dplyr::select(id, L, N, L_cum_mid, n, PD_f, E_char, E) %>% 
   rename(n_long = n, PD_long = PD_f) %>% 
   arrange(L) %>% 
   mutate(sampled=1) %>% 
-  group_by(e) %>% 
+  group_by(E) %>% 
   mutate(
     L_cum_right_alt = cumsum(L), #alt
     L_cum_left_alt =L_cum_right_alt-L,
@@ -72,11 +72,11 @@ fig1_df_long_s1 = fig1_df %>%
   )
 
 fig1_df_long_s0 = fig1_df %>% 
-  dplyr::select(id, L, N, L_cum_mid, N_f_not, PD_f_not, e_char, e) %>% 
+  dplyr::select(id, L, N, L_cum_mid, N_f_not, PD_f_not, E_char, E) %>% 
   rename(n_long = N_f_not, PD_long = PD_f_not) %>% 
   arrange(L) %>% 
   mutate(sampled=0) %>% 
-  group_by(e) %>% 
+  group_by(E) %>% 
   mutate(
     L_cum_right_alt = cumsum(L), #alt
     L_cum_left_alt =L_cum_right_alt-L,
@@ -99,7 +99,7 @@ fig1_df_long %>%
     position = "stack",
     colour = "black",
     lwd=.5) +
-  facet_grid(rows = vars(e_char)) +
+  facet_grid(rows = vars(E_char)) +
 
   ylab("Number of trips over segment") +
   xlab("Segment") +
@@ -138,7 +138,7 @@ fig1_df_long %>%
     stat="identity", 
     position = "stack",
     colour = "black") +
-  facet_grid(rows = vars(e_char)) +
+  facet_grid(rows = vars(E_char)) +
   ylab("Number of trips over intersection") +
   xlab("Intersection") +
   scale_fill_manual(
