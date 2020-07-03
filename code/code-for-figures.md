@@ -11,14 +11,14 @@ output:
 This code produces Figures 1 and 2 in the manuscript.
 
 Load the necessary libraries.
-```{r load packages, eval=TRUE, echo=TRUE, message=FALSE, error=FALSE, warning=FALSE}
 
+```r
 library(tidyverse) 
 library(truncnorm)
 ```
 
-```{r generate data, eval=TRUE, echo=TRUE}
 
+```r
 fig1_df = 1:20 %>% 
   as_tibble() %>% 
   rename(id=value) %>%
@@ -80,10 +80,10 @@ fig1_df_long_s0 = fig1_df %>%
 
 fig1_df_long = fig1_df_long_s1 %>% 
   bind_rows(fig1_df_long_s0)
-
 ```
 
-```{r figurecode, eval=TRUE, echo=TRUE}
+
+```r
 fig1_df_long %>% 
   ggplot(aes(x=l_cum_mid, y=n_long, width=l, fill =as.character(sampled))) + #set coordinate to the cumulative midpoint
   geom_bar(
@@ -115,4 +115,6 @@ fig1_df_long %>%
   theme( strip.background =element_rect(fill="white"))+
   theme(  strip.text =element_text(colour =   "black"))
 ```
+
+![](code-for-figures_files/figure-html/figurecode-1.png)<!-- -->
 
