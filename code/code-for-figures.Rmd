@@ -6,6 +6,7 @@ output:
   html_document:
     df_print: paged
     keep_md: true
+    preserve_yaml: false #this should get rid of the YAML
 ---
 
 This code produces Figures 1 and 2 in the manuscript.
