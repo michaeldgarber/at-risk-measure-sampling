@@ -4,7 +4,7 @@ author: "Michael Garber"
 date: "7/2/2020"
 output:
   html_document:
-  keep_md: true
+    df_print: paged
 ---
 
 
