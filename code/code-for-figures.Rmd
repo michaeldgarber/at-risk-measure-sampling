@@ -10,15 +10,17 @@ output:
 
 This code produces Figures 1 and 2 in the manuscript.
 
-Load the necessary libraries.
+First, load the necessary libraries.
 ```{r load packages, eval=TRUE, echo=TRUE, message=FALSE, error=FALSE, warning=FALSE}
 
 library(tidyverse) 
 library(truncnorm)
 ```
 
-```{r generate data, eval=TRUE, echo=TRUE}
 
+### Simulate data for the figure
+
+```{r generate data, eval=TRUE, echo=TRUE}
 fig1_df = 1:20 %>% 
   as_tibble() %>% 
   rename(id=value) %>%
@@ -83,6 +85,8 @@ fig1_df_long = fig1_df_long_s1 %>%
 
 ```
 
+### Figure 1: person-distance sampling at the segment level
+
 ```{r figurecode, eval=TRUE, echo=TRUE}
 fig1_df_long %>% 
   ggplot(aes(x=l_cum_mid, y=n_long, width=l, fill =as.character(sampled))) + #set coordinate to the cumulative midpoint
@@ -112,6 +116,44 @@ fig1_df_long %>%
     axis.text.x=element_blank(),
     axis.text.y = element_blank()
     )+
+  theme( strip.background =element_rect(fill="white"))+
+  theme(  strip.text =element_text(colour =   "black"))
+```
+
+### Figure 2: person-event sampling at the intersection level
+
+```{r figure 2, eval=TRUE, echo=TRUE}
+fig1_df_long %>% 
+  group_by(sampled) %>%  
+  arrange(desc(N)) %>% 
+  mutate(new_id = row_number()) %>% 
+  ungroup() %>% 
+  ggplot(aes(x=new_id, y=n_long, 
+             fill =as.character(sampled))) + #set coordinate to the cumulative midpoint
+  geom_bar(
+    stat="identity", 
+    position = "stack",
+    colour = "black") +
+  facet_grid(rows = vars(e_char)) +
+  ylab("Number of trips over intersection") +
+  xlab("Intersection") +
+  scale_fill_manual(
+    name = "Sampled",
+    labels = c(
+      "No",
+      "Yes"
+    ),
+    values = c("gray90",
+               "gray57"
+               
+    )
+  ) +
+  theme_bw(base_size = 14)+
+  theme(
+    axis.ticks=element_blank(),
+    axis.text.x=element_blank(),
+    axis.text.y = element_blank()
+  )+
   theme( strip.background =element_rect(fill="white"))+
   theme(  strip.text =element_text(colour =   "black"))
 ```

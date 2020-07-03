@@ -5,18 +5,20 @@ date: "7/2/2020"
 output:
   html_document:
     df_print: paged
-    keep_md: true
-    preserve_yaml: false #this should get rid of the YAML
+    keep_md: true #This creates a md file which can then be displayed on github. See https://happygitwithr.com/rmd-test-drive.html
 ---
 
 This code produces Figures 1 and 2 in the manuscript.
 
-Load the necessary libraries.
+First, load the necessary libraries.
 
 ```r
 library(tidyverse) 
 library(truncnorm)
 ```
+
+
+### Simulate data for the figure
 
 
 ```r
@@ -83,6 +85,8 @@ fig1_df_long = fig1_df_long_s1 %>%
   bind_rows(fig1_df_long_s0)
 ```
 
+### Figure 1: person-distance sampling at the segment level
+
 
 ```r
 fig1_df_long %>% 
@@ -118,4 +122,45 @@ fig1_df_long %>%
 ```
 
 ![](code-for-figures_files/figure-html/figurecode-1.png)<!-- -->
+
+### Figure 2: person-event sampling at the intersection level
+
+
+```r
+fig1_df_long %>% 
+  group_by(sampled) %>%  
+  arrange(desc(N)) %>% 
+  mutate(new_id = row_number()) %>% 
+  ungroup() %>% 
+  ggplot(aes(x=new_id, y=n_long, 
+             fill =as.character(sampled))) + #set coordinate to the cumulative midpoint
+  geom_bar(
+    stat="identity", 
+    position = "stack",
+    colour = "black") +
+  facet_grid(rows = vars(e_char)) +
+  ylab("Number of trips over intersection") +
+  xlab("Intersection") +
+  scale_fill_manual(
+    name = "Sampled",
+    labels = c(
+      "No",
+      "Yes"
+    ),
+    values = c("gray90",
+               "gray57"
+               
+    )
+  ) +
+  theme_bw(base_size = 14)+
+  theme(
+    axis.ticks=element_blank(),
+    axis.text.x=element_blank(),
+    axis.text.y = element_blank()
+  )+
+  theme( strip.background =element_rect(fill="white"))+
+  theme(  strip.text =element_text(colour =   "black"))
+```
+
+![](code-for-figures_files/figure-html/figure 2-1.png)<!-- -->
 
