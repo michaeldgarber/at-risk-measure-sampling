@@ -16,6 +16,9 @@ df_sim1 = as_tibble(1:n_segments_df1) %>%
     #length (L) of segment 
     L=rtruncnorm(a=3, mean=20, sd=20, n=n()), 
     #number of trips (N) over segment. negatively associated with length
+    #length of segment
+    L=rtruncnorm(a=3, mean=20, sd=20, n=n()), 
+    #number of trips over segment. negatively associated with length
     N=rtruncnorm(a=5, mean=20 + -0.1*L, sd=20, n=n()), 
     PD=L*N, #person-distance over segment
 
