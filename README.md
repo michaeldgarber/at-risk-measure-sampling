@@ -1,5 +1,5 @@
 # At-risk-measure sampling
-This repository is intended to accompany the manuscript entitled *At-risk-measure sampling in case-control studies with aggregated data*.
+This repository is intended to accompany the manuscript entitled *At-risk-measure sampling in case-control studies with aggregated data* (under review).
 
 There are three code files located in the [code](https://github.com/michaeldgarber/at-risk-measure-sampling/tree/master/code) folder.
 

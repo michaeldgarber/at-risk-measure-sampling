@@ -48,7 +48,7 @@ fig1_df = 1:20 %>%
             ),
     n = N*f, #sampled N is lowercase n, per manuscript notation
     PD_f = n*L, #segment-level person-distance
-    N_f_not = N-n, #number not sampled
+    n_not = N-n, #number not sampled
     PD_f_not = PD - PD_f,
     #Set exposure to follow a binomial distribution (p=.4)
     E = rbinom(n=n(), size=1, prob=.4),
@@ -73,8 +73,8 @@ fig1_df_long_s1 = fig1_df %>%
   )
 
 fig1_df_long_s0 = fig1_df %>% 
-  dplyr::select(id, L, N, L_cum_mid, N_f_not, PD_f_not, E_char, E) %>% 
-  rename(n_long = N_f_not, PD_long = PD_f_not) %>% 
+  dplyr::select(id, L, N, L_cum_mid, n_not, PD_f_not, E_char, E) %>% 
+  rename(n_long = n_not, PD_long = PD_f_not) %>% 
   arrange(L) %>% 
   mutate(sampled=0) %>% 
   group_by(E) %>% 
