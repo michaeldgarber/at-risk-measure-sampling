@@ -3,6 +3,7 @@
 #       groups to illustrate the condition
 
 #Author: Michael Garber
+#Date revised: July 3, 2020
 
 library(tidyverse)
 library(truncnorm)
