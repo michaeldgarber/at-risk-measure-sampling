@@ -680,9 +680,8 @@ IRR_arith = IR_E1_arith/IR_E0_arith
 names(df_pred_etm_f_v)
 resid_v = as.vector(df_pred_etm_f_v$resid_f)
 
-#nested_boot <-function(s_id) {
-names(df_pred_etm_f_v)
-
+#Write a function to create values of each variables in a sample iteration and then run
+#the function a bunch of times and summarize results
 bootstrap_func <-function(s_id_val){
 
   #----------7.1 Re-sample groups first-------------------####
