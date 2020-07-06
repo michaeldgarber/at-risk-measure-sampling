@@ -7,7 +7,7 @@ There are three files of R code files located in the [code](https://github.com/m
 
 2. The second, [sim1-simple.R](https://github.com/michaeldgarber/at-risk-measure-sampling/blob/master/code/sim1-simple.R), simulate a simple dataset to illustrate the condition (Equation 3 from the manuscript).
 
-3. The third, link, simulates a more involved dataset that parallels aspects of the example in the manuscript. It induces correlation of segment-level variables within streets. With this grouped dataset, we illustrate the following procedures, which are described in the manuscript:
+3. The third, [sim2-detailed.R](https://github.com/michaeldgarber/at-risk-measure-sampling/blob/master/code/sim2-detailed.R), simulates a more involved dataset that parallels aspects of the example in the manuscript. It induces correlation of segment-level variables within streets. With this grouped dataset, we illustrate the following procedures, which are described in the manuscript:
     
     + Calculation of the unadjused result.
 
@@ -17,6 +17,6 @@ There are three files of R code files located in the [code](https://github.com/m
     
     + Multiple bias analyses.
     
-    + The production of 95% confidence intervals for each of the above using the percentile method from hierarchical bootstrapping.
+    + Production of 95% confidence intervals for each of the above using the percentile method from hierarchical bootstrapping.
 
 
