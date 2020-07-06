@@ -15,6 +15,8 @@ There are three files of R code files located in the [code](https://github.com/m
     
     + Adjustment for confounding using a weighted geometric mean.
     
+    + Multiple bias analyses.
+    
     + The production of 95% confidence intervals for each of the above using the percentile method from hierarchical bootstrapping.
 
 
