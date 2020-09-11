@@ -884,7 +884,8 @@ bootstrap_func <-function(s_id_val){
   ir_E0_geo_tib = ir_E0_geo_s %>% as_tibble() %>% 
     mutate(measure = "ir_E0_geo_s", E_or_R= "E0") %>% mutate(scenario = "3-geo-mean")
   irr_geo_tib =  irr_geo_s  %>% as_tibble() %>% 
-    mutate(measure = "irr_geo_s", E_or_R= "R") %>% mutate(scenario = "3-geo-mean")
+    mutate(measure = "irr_geo_s", E_or_R= "R") %>% 
+    mutate(scenario = "3-geo-mean")
   
   IR_E1_IPSW_geo_tib = IR_E1_IPSW_geo_s %>% as_tibble() %>%  
     mutate(measure = "IR_E1_IPSW_geo_s", E_or_R= "E1") %>% mutate(scenario = "4-mult")
@@ -903,10 +904,18 @@ bootstrap_func <-function(s_id_val){
   
   return(tib_s)
 
+  print(tib_s$s_id)
+
 }
 
+hi=1:100 %>% as_tibble() %>% 
+  mutate(newvar=rbinom(n=n(), size=1, prob=.2))
+
+print(hi$newvar)
+
+
 #-----7.3. Run the function and summarize results----------####
-n_boot_reps = 100
+n_boot_reps = 3
 s_id_val_list <- seq(from = 1, to = n_boot_reps, by = 1)
 
 #This runs the function and then rbinds results
