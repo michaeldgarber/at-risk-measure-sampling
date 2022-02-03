@@ -1,5 +1,5 @@
 # At-risk-measure sampling
-This repository accompanies the manuscript entitled *At-risk-measure sampling in case-control studies with aggregated data, Epidemiology*, 2021.
+This repository accompanies the manuscript entitled *At-risk-measure sampling in case-control studies with aggregated data, Epidemiology*, 2021 (https://journals.lww.com/epidem/Fulltext/2021/01000/At_risk_measure_Sampling_in_Case_Control_Studies.14.aspx).
 
 There are three files of R code located in the [code](https://github.com/michaeldgarber/at-risk-measure-sampling/tree/master/code) folder.
 
