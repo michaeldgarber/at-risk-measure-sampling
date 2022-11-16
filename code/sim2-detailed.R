@@ -180,6 +180,7 @@ df_sim2 %>% mutate(error = case_when(
   n_m > N_m ~ 1,
   TRUE ~ 0 )) %>% 
   filter(error==1) 
+
 nrow(df_sim2)
 summary(df_sim2$n_segments)
 summary(df_sim2$L_g)
@@ -187,7 +188,6 @@ summary(df_sim2$N_g)
 summary(df_sim2$f_m)
 summary(df_sim2$ind_g)
 sd(df_sim2$N_g)
-table(df_sim2)
 table(df_sim2$C_g)
 table(df_sim2$E_g)
 table(df_sim2$C_g, 
@@ -965,4 +965,4 @@ bootstrap_summary = bootstrap_df %>%
   )
 
 options(scipen=7)
-View(bootstrap_summary)
+#View(bootstrap_summary)
